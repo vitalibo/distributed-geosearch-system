@@ -12,4 +12,58 @@
 
     <artifactId>geosearch-shared</artifactId>
 
+    <properties>
+        <schema.registry.url>http://localhost:8081</schema.registry.url>
+        <schema.directory>src/main/resources/avro</schema.directory>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>schemas</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>schema</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/${schema.directory}/</sourceDirectory>
+                            <outputDirectory>${project.build.directory}/generated-sources/</outputDirectory>
+                            <customConversions>org.apache.avro.Conversions$UUIDConversion</customConversions>
+                            <stringType>String</stringType>
+                            <imports>
+                                <import>${project.basedir}/${schema.directory}/geo_event.avsc</import>
+                            </imports>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.confluent</groupId>
+                <artifactId>kafka-schema-registry-maven-plugin</artifactId>
+                <configuration>
+                    <schemaRegistryUrls>
+                        <param>${schema.registry.url}</param>
+                    </schemaRegistryUrls>
+                    <subjects>
+                        <geo-event-value>${schema.directory}/geo_event.avsc</geo-event-value>
+                        <geo-search-query-value>${schema.directory}/geo_search_query.avsc</geo-search-query-value>
+                        <geo-search-result-value>${schema.directory}/geo_search_result.avsc</geo-search-result-value>
+                    </subjects>
+                    <outputDirectory/>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

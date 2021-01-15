@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "namespace": "com.github.vitalibo.geosearch.shared",
+  "name": "GeoSearchResultShared",
+  "fields": [
+    {
+      "name": "id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      },
+      "doc": "query id"
+    },
+    {
+      "name": "events",
+      "type": {
+        "type": "array",
+        "items": "com.github.vitalibo.geosearch.shared.GeoEventShared",
+        "java-class": "java.util.Set"
+      }
+    }
+  ]
+}

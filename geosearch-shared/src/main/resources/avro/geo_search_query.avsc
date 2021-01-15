@@ -1,0 +1,45 @@
+{
+  "type": "record",
+  "namespace": "com.github.vitalibo.geosearch.shared",
+  "name": "GeoSearchQueryShared",
+  "fields": [
+    {
+      "name": "id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name": "action",
+      "type": {
+        "type": "enum",
+        "namespace": "com.github.vitalibo.geosearch.shared",
+        "name": "GeoSearchQueryActionShared",
+        "symbols": [
+          "SUBSCRIBE",
+          "UNSUBSCRIBE"
+        ]
+      }
+    },
+    {
+      "name": "boundingBox",
+      "type": {
+        "type": "record",
+        "namespace": "com.github.vitalibo.geosearch.shared",
+        "name": "GeoSearchQueryBoundingBoxShared",
+        "fields": [
+          {
+            "name": "type",
+            "type": "string",
+            "default": "GeoJSON"
+          },
+          {
+            "name": "geometry",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}
