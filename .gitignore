@@ -1,0 +1,6 @@
+.DS_Store
+*.iml
+*dependency-reduced-pom.xml
+*target/
+.idea/
+*Run.java
