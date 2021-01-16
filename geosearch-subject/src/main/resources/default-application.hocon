@@ -1,1 +1,24 @@
 module: subject
+
+source {
+  random {
+    backOffSleepIntervalMillis: 200
+    probability: 0.7
+  }
+}
+
+channel {
+  kafka {
+    bootstrapServers: null
+    securityProtocol: null
+    acknowledgments: "all"
+    schemaRegistryUrl: null
+    keySerializerClass: "org.apache.kafka.common.serialization.IntegerSerializer"
+    valueSerializerClass: "io.confluent.kafka.serializers.KafkaAvroSerializer"
+    dynamicConf {
+      "auto.register.schemas": false
+    }
+
+    topicGeoEvent: "geo-event"
+  }
+}

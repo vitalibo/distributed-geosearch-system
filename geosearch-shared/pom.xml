@@ -60,6 +60,14 @@
                         <geo-search-query-value>${schema.directory}/geo_search_query.avsc</geo-search-query-value>
                         <geo-search-result-value>${schema.directory}/geo_search_result.avsc</geo-search-result-value>
                     </subjects>
+                    <references>
+                        <geo-search-result-value>
+                            <reference>
+                                <name>com.github.vitalibo.geosearch.shared.GeoEventShared</name>
+                                <subject>geo-event-value</subject>
+                            </reference>
+                        </geo-search-result-value>
+                    </references>
                     <outputDirectory/>
                 </configuration>
             </plugin>

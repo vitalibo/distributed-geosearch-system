@@ -1,1 +1,16 @@
 environment: dev
+
+source {
+  random {
+    backOffSleepIntervalMillis: 1000
+  }
+}
+
+channel {
+  kafka {
+    bootstrapServers: "localhost:9092"
+    securityProtocol: "PLAINTEXT"
+    acknowledgments: "1"
+    schemaRegistryUrl: "http://localhost:8081"
+  }
+}
