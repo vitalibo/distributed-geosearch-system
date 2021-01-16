@@ -1,1 +1,8 @@
 environment: dev
+
+kafka {
+  bootstrapServers: "localhost:9092"
+  securityProtocol: "PLAINTEXT"
+  schemaRegistryUrl: "http://localhost:8081"
+  replicationFactor: 1
+}

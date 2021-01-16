@@ -1,1 +1,15 @@
 module: processor
+
+kafka {
+  applicationId: ${environment}"-geosearch"
+  bootstrapServers: null
+  securityProtocol: null
+  schemaRegistryUrl: null
+  replicationFactor: 3
+  dynamicConf {
+  }
+
+  schemaRegistryDynamicConf {
+    "auto.register.schemas": false
+  }
+}
