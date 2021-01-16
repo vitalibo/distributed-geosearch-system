@@ -2,6 +2,7 @@ package com.github.vitalibo.geosearch.subject.infrastructure;
 
 import lombok.Data;
 
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -16,6 +17,7 @@ public class Configuration {
     public static class Source {
 
         private Random random;
+        private Blitzortung blitzortung;
 
     }
 
@@ -27,6 +29,15 @@ public class Configuration {
 
     }
 
+    @Data
+    public static class Blitzortung {
+
+        private String hostUriPattern;
+        private List<String> hosts;
+        private Integer port;
+        private Integer minRunningTimeToReconnect;
+
+    }
 
     @Data
     public static class Channel {

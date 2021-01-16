@@ -5,6 +5,22 @@ source {
     backOffSleepIntervalMillis: 200
     probability: 0.7
   }
+
+  blitzortung {
+    hostUriPattern: "wss://%s.blitzortung.org:%s"
+    hosts: [
+      "ws0",
+      "ws1",
+      "ws2",
+      "ws3",
+      "ws4",
+      "ws5",
+      "ws6",
+      "ws7"
+    ]
+    port: 3000
+    minRunningTimeToReconnect: 60
+  }
 }
 
 channel {

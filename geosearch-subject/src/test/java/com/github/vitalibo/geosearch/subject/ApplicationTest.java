@@ -26,6 +26,7 @@ public class ApplicationTest {
     public void setUp() throws Exception {
         MockitoAnnotations.openMocks(this).close();
         Mockito.when(mockFactory.createRandomGeoEventSource()).thenReturn(mockSource);
+        Mockito.when(mockFactory.createBlitzortungLightningSource()).thenReturn(mockSource);
         Mockito.when(mockFactory.createRunner(Mockito.any())).thenReturn(mockRunner);
         application = new Application(mockFactory);
     }
@@ -35,6 +36,17 @@ public class ApplicationTest {
         application.run(new String[]{"random"});
 
         Mockito.verify(mockFactory).createRandomGeoEventSource();
+        Mockito.verify(mockFactory, Mockito.never()).createBlitzortungLightningSource();
+        Mockito.verify(mockFactory).createRunner(mockSource);
+        Mockito.verify(mockRunner).process();
+    }
+
+    @Test
+    public void testProcessBlitzortungLightningSource() {
+        application.run(new String[]{"blitzortung"});
+
+        Mockito.verify(mockFactory, Mockito.never()).createRandomGeoEventSource();
+        Mockito.verify(mockFactory).createBlitzortungLightningSource();
         Mockito.verify(mockFactory).createRunner(mockSource);
         Mockito.verify(mockRunner).process();
     }

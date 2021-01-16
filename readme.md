@@ -16,3 +16,7 @@ Simple distributed geo search system on top of Apache Kafka
 ```
 
 </details>
+
+## Resources
+
+- [blitzortung.org](https://www.blitzortung.org/en/live_lightning_maps.php) - Network for Lightning and Thunderstorms in Real Time.

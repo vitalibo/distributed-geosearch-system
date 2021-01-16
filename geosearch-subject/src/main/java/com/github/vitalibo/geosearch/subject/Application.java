@@ -24,6 +24,9 @@ public class Application {
                 case "random":
                     source = factory.createRandomGeoEventSource();
                     break;
+                case "blitzortung":
+                    source = factory.createBlitzortungLightningSource();
+                    break;
                 default:
                     throw new IllegalArgumentException("Unsupported source type");
             }

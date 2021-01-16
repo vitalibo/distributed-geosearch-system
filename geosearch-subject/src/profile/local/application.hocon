@@ -4,6 +4,12 @@ source {
   random {
     backOffSleepIntervalMillis: 1000
   }
+
+  blitzortung {
+    hosts: [
+      "ws7"
+    ]
+  }
 }
 
 channel {

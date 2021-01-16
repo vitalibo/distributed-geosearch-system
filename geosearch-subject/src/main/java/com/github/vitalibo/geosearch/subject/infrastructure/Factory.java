@@ -7,6 +7,7 @@ import com.github.vitalibo.geosearch.subject.core.model.GeoEvent;
 import com.github.vitalibo.geosearch.subject.core.source.RandomGeoEventSource;
 import com.github.vitalibo.geosearch.subject.infrastructure.kafka.KafkaChannel;
 import com.github.vitalibo.geosearch.subject.infrastructure.kafka.model.transform.ProducerRecordTranslator;
+import com.github.vitalibo.geosearch.subject.infrastructure.websocket.BlitzortungLightningSource;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigBeanFactory;
 import com.typesafe.config.ConfigFactory;
@@ -45,6 +46,16 @@ public class Factory {
         return new RandomGeoEventSource(
             randomConf.getBackOffSleepIntervalMillis(),
             randomConf.getProbability());
+    }
+
+    public Source<GeoEvent> createBlitzortungLightningSource() {
+        final Configuration.Blitzortung blitzortungConf = configuration.getSource().getBlitzortung();
+
+        return new BlitzortungLightningSource(
+            blitzortungConf.getHostUriPattern(),
+            blitzortungConf.getHosts(),
+            blitzortungConf.getPort(),
+            blitzortungConf.getMinRunningTimeToReconnect());
     }
 
     public Runner<GeoEvent> createRunner(Source<GeoEvent> source) {
