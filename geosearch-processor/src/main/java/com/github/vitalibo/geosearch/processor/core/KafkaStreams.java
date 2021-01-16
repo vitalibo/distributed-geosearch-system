@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.Delegate;
 
+import java.util.Arrays;
+
+import static org.apache.kafka.streams.KafkaStreams.State.ERROR;
 import static org.apache.kafka.streams.KafkaStreams.State.NOT_RUNNING;
 
 @RequiredArgsConstructor
@@ -21,7 +24,7 @@ public class KafkaStreams implements AutoCloseable {
     public void awaitTermination() {
         runtime.addShutdownHook(new Thread(streams::close));
 
-        while (!NOT_RUNNING.equals(streams.state())) {
+        while (!Arrays.asList(NOT_RUNNING, ERROR).contains(streams.state())) {
             Thread.sleep(1000);
         }
     }

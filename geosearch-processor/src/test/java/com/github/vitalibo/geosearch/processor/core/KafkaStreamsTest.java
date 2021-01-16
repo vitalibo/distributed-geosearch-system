@@ -23,13 +23,24 @@ public class KafkaStreamsTest {
     }
 
     @Test
-    public void testAwaitTermination() {
+    public void testAwaitTerminationNotRunning() {
+        Mockito.when(mockKafkaStreams.state())
+            .thenReturn(State.CREATED, State.RUNNING, State.RUNNING, State.NOT_RUNNING, State.ERROR);
+
+        spyKafkaStreams.awaitTermination();
+
+        Mockito.verify(mockKafkaStreams, Mockito.times(4)).state();
+        Mockito.verify(mockKafkaStreams, Mockito.never()).close();
+    }
+
+    @Test
+    public void testAwaitTerminationError() {
         Mockito.when(mockKafkaStreams.state())
             .thenReturn(State.CREATED, State.RUNNING, State.RUNNING, State.ERROR, State.NOT_RUNNING);
 
         spyKafkaStreams.awaitTermination();
 
-        Mockito.verify(mockKafkaStreams, Mockito.times(5)).state();
+        Mockito.verify(mockKafkaStreams, Mockito.times(4)).state();
         Mockito.verify(mockKafkaStreams, Mockito.never()).close();
     }
 

@@ -1,5 +1,7 @@
 module: processor
 
+geohashLength: 5
+
 kafka {
   applicationId: ${environment}"-geosearch"
   bootstrapServers: null
@@ -12,4 +14,8 @@ kafka {
   schemaRegistryDynamicConf {
     "auto.register.schemas": false
   }
+
+  topicGeoEvent: "geo-event"
+  topicGeoSearchQuery: "geo-search-query"
+  topicGeoSearchResult: "geo-search-result"
 }

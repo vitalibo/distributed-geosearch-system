@@ -1,7 +1,14 @@
 package com.github.vitalibo.geosearch.processor.infrastructure;
 
 import com.github.vitalibo.geosearch.processor.core.KafkaStreams;
+import com.github.vitalibo.geosearch.processor.core.Topic;
 import com.github.vitalibo.geosearch.processor.core.stream.GeoSearchTopology;
+import com.github.vitalibo.geosearch.processor.core.util.SerDe;
+import com.github.vitalibo.geosearch.processor.infrastructure.kafka.ReadableStreamValueDecorator;
+import com.github.vitalibo.geosearch.processor.infrastructure.kafka.WritableStreamValueDecorator;
+import com.github.vitalibo.geosearch.processor.infrastructure.kafka.transform.GeoEventTranslator;
+import com.github.vitalibo.geosearch.processor.infrastructure.kafka.transform.GeoSearchQueryTranslator;
+import com.github.vitalibo.geosearch.processor.infrastructure.kafka.transform.GeoSearchResultSharedTranslator;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigBeanFactory;
 import com.typesafe.config.ConfigFactory;
@@ -42,7 +49,19 @@ public class Factory {
     }
 
     public Topology createGeoSearchTopology() {
-        return new GeoSearchTopology()
+        final Configuration.Kafka kafkaConf = configuration.getKafka();
+
+        return new GeoSearchTopology(
+            new ReadableStreamValueDecorator<>(
+                new Topic<>(kafkaConf.getTopicGeoEvent(), SerDe.Integer(), valueSchemaRegistryAvroSerDe(kafkaConf)),
+                GeoEventTranslator::from),
+            new ReadableStreamValueDecorator<>(
+                new Topic<>(kafkaConf.getTopicGeoSearchQuery(), SerDe.String(), valueSchemaRegistryAvroSerDe(kafkaConf)),
+                GeoSearchQueryTranslator::from),
+            new WritableStreamValueDecorator<>(
+                new Topic<>(kafkaConf.getTopicGeoSearchResult(), SerDe.String(), valueSchemaRegistryAvroSerDe(kafkaConf)),
+                GeoSearchResultSharedTranslator::from),
+            configuration.getGeohashLength())
             .build();
     }
 
@@ -63,7 +82,7 @@ public class Factory {
                 properties));
     }
 
-    public static <T extends SpecificRecord> Serde<T> valueSchemaRegistryAvroSerDe(Configuration.Kafka kafkaConf) {
+    private static <T extends SpecificRecord> Serde<T> valueSchemaRegistryAvroSerDe(Configuration.Kafka kafkaConf) {
         final Map<String, Object> properties = new HashMap<>();
         properties.put(SCHEMA_REGISTRY_URL_CONFIG, kafkaConf.getSchemaRegistryUrl());
         kafkaConf.getSchemaRegistryDynamicConf().forEach(properties::put);

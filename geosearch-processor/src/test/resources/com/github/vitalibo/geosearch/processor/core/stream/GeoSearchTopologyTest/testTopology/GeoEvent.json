@@ -1,0 +1,295 @@
+[
+  [
+    {
+      "value": {
+        "id": "c7c454c4-9330-49ba-86f7-1130280a383f",
+        "timestamp": 1610435663232,
+        "latitude": -33.6264,
+        "longitude": 146.4787
+      },
+      "key": 3670342
+    },
+    {
+      "value": {
+        "id": "401469f5-ea82-4104-8fa8-d4eaa1b0594f",
+        "timestamp": 1610435666681,
+        "latitude": 48.5966,
+        "longitude": 23.3899
+      },
+      "key": 8388810
+    },
+    {
+      "value": {
+        "id": "2ffbeeec-8e88-413f-b77f-2b5dfd4ee0db",
+        "timestamp": 1610435666681,
+        "latitude": 49.6534,
+        "longitude": 23.8335
+      },
+      "key": 8388810
+    }
+  ],
+  [
+    {
+      "value": {
+        "id": "7bf38953-d4d7-4847-8363-fd669d50166d",
+        "timestamp": 1610435666681,
+        "latitude": 37.659836,
+        "longitude": 22.358738
+      },
+      "key": 8121273
+    },
+    {
+      "value": {
+        "id": "582c9378-1528-408a-9f07-423ad9ceffb0",
+        "timestamp": 1610435666681,
+        "latitude": 48.7571,
+        "longitude": 23.5121
+      },
+      "key": 8388810
+    },
+    {
+      "value": {
+        "id": "818d952f-55df-4681-a865-7caf5fa6b642",
+        "timestamp": 1610435666681,
+        "latitude": 48.6765,
+        "longitude": 23.5657
+      },
+      "key": 8388810
+    },
+    {
+      "value": {
+        "id": "0385b2af-f85d-4f5a-8a02-4f56d91dc0b6",
+        "timestamp": 1610435670330,
+        "latitude": -45.557698,
+        "longitude": 157.217645
+      },
+      "key": 2883921
+    },
+    {
+      "value": {
+        "id": "ba7634c4-cf73-4e53-a872-9965a23d8da1",
+        "timestamp": 1610435673474,
+        "latitude": -36.788036,
+        "longitude": 148.717368
+      },
+      "key": 3473737
+    },
+    {
+      "value": {
+        "id": "1fe56b7a-78e2-458c-b6f7-e1df0a808503",
+        "timestamp": 1610435677122,
+        "latitude": 49.3430,
+        "longitude": 23.8458
+      },
+      "key": 8585421
+    },
+    {
+      "value": {
+        "id": "8aaacbdf-64e1-4357-84c3-953c3c1b84f8",
+        "timestamp": 1610435677122,
+        "latitude": 49.4145,
+        "longitude": 26.3452
+      },
+      "key": 8585421
+    }
+  ],
+  [
+    {
+      "value": {
+        "id": "e87b9170-6eb5-465e-abe9-032bc36b4ebc",
+        "timestamp": 1610435677702,
+        "latitude": 49.5288,
+        "longitude": 26.4825
+      },
+      "key": 8585421
+    },
+    {
+      "value": {
+        "id": "5853c06b-9c1e-44f4-9e11-8865b2b14674",
+        "timestamp": 1610435677825,
+        "latitude": 49.6463,
+        "longitude": 26.2244
+      },
+      "key": 8585421
+    },
+    {
+      "value": {
+        "id": "5dd855c3-a441-4e4e-bdb3-ffa2045a076d",
+        "timestamp": 1610435677825,
+        "latitude": 49.7138,
+        "longitude": 23.6852
+      },
+      "key": 8585421
+    },
+    {
+      "value": {
+        "id": "3919eec5-670c-4ab1-8c7c-4ae0f3d1372b",
+        "timestamp": 1610435677702,
+        "latitude": 49.5591,
+        "longitude": 23.6906
+      },
+      "key": 8585421
+    },
+    {
+      "value": {
+        "id": "f07ef1ad-71b3-4d92-9d04-30835fe7dd96",
+        "timestamp": 1610435680248,
+        "latitude": -32.775827,
+        "longitude": 145.777652
+      },
+      "key": 3735878
+    },
+    {
+      "value": {
+        "id": "e86fe2d8-f6b9-4211-841a-a72ccfbb92b9",
+        "timestamp": 1610435677702,
+        "latitude": 40.717003,
+        "longitude": 24.842255
+      },
+      "key": 8585421
+    },
+    {
+      "value": {
+        "id": "40531281-0110-4f65-80cd-ae9f11416109",
+        "timestamp": 1610435680260,
+        "latitude": -32.756233,
+        "longitude": 145.779344
+      },
+      "key": 3735878
+    },
+    {
+      "value": {
+        "id": "b7d29d27-ae26-477d-9b1a-4537328db85e",
+        "timestamp": 1610435677825,
+        "latitude": 49.4949,
+        "longitude": 23.6728
+      },
+      "key": 8585421
+    }
+  ],
+  [
+    {
+      "value": {
+        "id": "9ee20ba2-b982-4341-91de-dca9a6b445dd",
+        "timestamp": 1610435677702,
+        "latitude": 49.5849,
+        "longitude": 23.8115
+      },
+      "key": 8585421
+    },
+    {
+      "value": {
+        "id": "15c6a7d7-cb98-47ba-bb1c-fe549dcd420d",
+        "timestamp": 1610435677702,
+        "latitude": 49.4842,
+        "longitude": 23.7799
+      },
+      "key": 8585421
+    },
+    {
+      "value": {
+        "id": "790fb0c0-ee17-4d15-ba6b-ca7ddd4140d8",
+        "timestamp": 1610435680266,
+        "latitude": -32.803426,
+        "longitude": 145.795347
+      },
+      "key": 3735878
+    }
+  ],
+  [
+    {
+      "value": {
+        "id": "94f78e61-3ff9-4c53-8752-4fd0876da8a7",
+        "timestamp": 1610435733230,
+        "latitude": 49.3967,
+        "longitude": 23.6591
+      },
+      "key": 8585421
+    },
+    {
+      "value": {
+        "id": "d1aa07a0-b7da-4023-ac34-7d74b57c26ff",
+        "timestamp": 1610435733230,
+        "latitude": 49.5974,
+        "longitude": 23.9296
+      },
+      "key": 8585421
+    },
+    {
+      "value": {
+        "id": "532f6f9c-3476-414b-80b3-de1de0535726",
+        "timestamp": 1610435729759,
+        "latitude": 36.685618,
+        "longitude": 14.934525
+      },
+      "key": 8323267
+    },
+    {
+      "value": {
+        "id": "0925634a-e6b3-4a16-8f3f-36833513073d",
+        "timestamp": 1610435734873,
+        "latitude": -45.65571,
+        "longitude": 157.529665
+      },
+      "key": 2883922
+    }
+  ],
+  [
+    {
+      "value": {
+        "id": "9616b369-70a1-46e1-8073-bf47a04ce66a",
+        "timestamp": 1610435733230,
+        "latitude": 49.7493,
+        "longitude": 23.9337
+      },
+      "key": 8585421
+    },
+    {
+      "value": {
+        "id": "5e5cd7d2-91ca-4eae-8154-79c6c7e61b8c",
+        "timestamp": 1610435740865,
+        "latitude": -18.921309,
+        "longitude": 141.39687
+      },
+      "key": 4653377
+    }
+  ],
+  [
+    {
+      "value": {
+        "id": "1f58e0d4-f614-46d3-b906-feeb6d8c9258",
+        "timestamp": 1610435740865,
+        "latitude": -19.369939,
+        "longitude": 141.441927
+      },
+      "key": 4653377
+    },
+    {
+      "value": {
+        "id": "a9e74345-d088-452f-b7e7-5fc7041016eb",
+        "timestamp": 1610435748937,
+        "latitude": 10.603182,
+        "longitude": -111.07055
+      },
+      "key": 6619205
+    },
+    {
+      "value": {
+        "id": "c241c2fd-4bb6-4f24-adfd-7a4a240f89aa",
+        "timestamp": 1610435748937,
+        "latitude": 49.7103,
+        "longitude": 24.0051
+      },
+      "key": 8585421
+    },
+    {
+      "value": {
+        "id": "4a17c418-4043-4e65-95cb-d75a912f47c6",
+        "timestamp": 1610435746676,
+        "latitude": -16.051321,
+        "longitude": 135.435996
+      },
+      "key": 4849979
+    }
+  ]
+]

@@ -9,6 +9,7 @@ public class Configuration {
 
     private String module;
     private String environment;
+    private Integer geohashLength;
     private Kafka kafka;
 
     @Data
@@ -21,6 +22,10 @@ public class Configuration {
         private Integer replicationFactor;
         private Map<String, Object> dynamicConf;
         private Map<String, Object> schemaRegistryDynamicConf;
+
+        private String topicGeoEvent;
+        private String topicGeoSearchQuery;
+        private String topicGeoSearchResult;
 
     }
 
