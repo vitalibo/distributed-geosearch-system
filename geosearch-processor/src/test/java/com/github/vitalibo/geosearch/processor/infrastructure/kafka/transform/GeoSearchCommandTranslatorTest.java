@@ -1,10 +1,10 @@
 package com.github.vitalibo.geosearch.processor.infrastructure.kafka.transform;
 
 import com.github.vitalibo.geosearch.processor.core.model.BoundingBox;
-import com.github.vitalibo.geosearch.processor.core.model.GeoSearchQuery;
-import com.github.vitalibo.geosearch.shared.GeoSearchQueryActionShared;
-import com.github.vitalibo.geosearch.shared.GeoSearchQueryBoundingBoxShared;
-import com.github.vitalibo.geosearch.shared.GeoSearchQueryShared;
+import com.github.vitalibo.geosearch.processor.core.model.GeoSearchCommand;
+import com.github.vitalibo.geosearch.shared.GeoSearchCommandActionShared;
+import com.github.vitalibo.geosearch.shared.GeoSearchCommandBoundingBoxShared;
+import com.github.vitalibo.geosearch.shared.GeoSearchCommandShared;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -12,26 +12,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class GeoSearchQueryTranslatorTest {
+public class GeoSearchCommandTranslatorTest {
 
     @Test
     public void testFrom() {
-        GeoSearchQueryShared geoSearchQueryShared = GeoSearchQueryShared.newBuilder()
+        GeoSearchCommandShared geoSearchCommandShared = GeoSearchCommandShared.newBuilder()
             .setId(UUID.fromString("8b4bb543-f654-4dd6-b762-68978b2a993a"))
-            .setAction(GeoSearchQueryActionShared.SUBSCRIBE)
-            .setBoundingBox(GeoSearchQueryBoundingBoxShared.newBuilder()
+            .setAction(GeoSearchCommandActionShared.SUBSCRIBE)
+            .setBoundingBox(GeoSearchCommandBoundingBoxShared.newBuilder()
                 .setType("GeoJSON")
                 .setGeometry("Polygon {}")
                 .build())
             .build();
 
-        Iterable<GeoSearchQuery> iterable = GeoSearchQueryTranslator.from(geoSearchQueryShared);
+        Iterable<GeoSearchCommand> iterable = GeoSearchCommandTranslator.from(geoSearchCommandShared);
 
         Assert.assertNotNull(iterable);
-        List<GeoSearchQuery> list = new ArrayList<>();
+        List<GeoSearchCommand> list = new ArrayList<>();
         iterable.forEach(list::add);
         Assert.assertEquals(list.size(), 1);
-        GeoSearchQuery actual = list.get(0);
+        GeoSearchCommand actual = list.get(0);
         Assert.assertNotNull(actual);
         Assert.assertEquals(actual.getId(), "8b4bb543-f654-4dd6-b762-68978b2a993a");
         Assert.assertTrue(actual.isSubscribe());
@@ -42,10 +42,10 @@ public class GeoSearchQueryTranslatorTest {
 
     @Test
     public void testFromNull() {
-        Iterable<GeoSearchQuery> iterable = GeoSearchQueryTranslator.from(null);
+        Iterable<GeoSearchCommand> iterable = GeoSearchCommandTranslator.from(null);
 
         Assert.assertNotNull(iterable);
-        List<GeoSearchQuery> list = new ArrayList<>();
+        List<GeoSearchCommand> list = new ArrayList<>();
         iterable.forEach(list::add);
         Assert.assertTrue(list.isEmpty());
     }

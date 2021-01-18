@@ -9,7 +9,7 @@ import lombok.With;
 @With
 @NoArgsConstructor
 @AllArgsConstructor
-public class GeoSearchQuery {
+public class GeoSearchCommand {
 
     private String id;
     private boolean subscribe;

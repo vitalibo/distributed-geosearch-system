@@ -3,7 +3,7 @@ package com.github.vitalibo.geosearch.processor.core.stream.transform;
 import com.github.vitalibo.geosearch.processor.TestHelper;
 import com.github.vitalibo.geosearch.processor.core.model.BoundingBox;
 import com.github.vitalibo.geosearch.processor.core.model.GeoEvent;
-import com.github.vitalibo.geosearch.processor.core.model.GeoSearchQuery;
+import com.github.vitalibo.geosearch.processor.core.model.GeoSearchCommand;
 import com.github.vitalibo.geosearch.processor.core.model.GeoSearchResult;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.KeyValueMapper;
@@ -17,7 +17,7 @@ public class GeoSearchOpsTest {
 
     @Test
     public void testDefineCoverBoundingBox() {
-        TransformerSupplier<String, GeoSearchQuery, Iterable<KeyValue<String, GeoSearchQuery>>> actual =
+        TransformerSupplier<String, GeoSearchCommand, Iterable<KeyValue<String, GeoSearchCommand>>> actual =
             GeoSearchOps.defineCoverBoundingBox(5);
 
         Assert.assertNotNull(actual);
@@ -26,12 +26,12 @@ public class GeoSearchOpsTest {
 
     @Test
     public void testPackAdd() {
-        GeoSearchQuery request = new GeoSearchQuery()
+        GeoSearchCommand request = new GeoSearchCommand()
             .withId("3063664f-cd4d-4818-b5d3-8fb72c019bf5")
             .withSubscribe(true);
-        Map<String, GeoSearchQuery> state = new HashMap<>();
+        Map<String, GeoSearchCommand> state = new HashMap<>();
 
-        Map<String, GeoSearchQuery> actual = GeoSearchOps.pack("foo", request, state);
+        Map<String, GeoSearchCommand> actual = GeoSearchOps.pack("foo", request, state);
 
         Assert.assertNotNull(actual);
         Assert.assertEquals(actual.get("3063664f-cd4d-4818-b5d3-8fb72c019bf5"), request);
@@ -39,13 +39,13 @@ public class GeoSearchOpsTest {
 
     @Test
     public void testPackRemove() {
-        GeoSearchQuery request = new GeoSearchQuery()
+        GeoSearchCommand request = new GeoSearchCommand()
             .withId("3063664f-cd4d-4818-b5d3-8fb72c019bf5")
             .withSubscribe(false);
-        Map<String, GeoSearchQuery> state = new HashMap<>();
+        Map<String, GeoSearchCommand> state = new HashMap<>();
         state.put("3063664f-cd4d-4818-b5d3-8fb72c019bf5", request);
 
-        Map<String, GeoSearchQuery> actual = GeoSearchOps.pack("foo", request, state);
+        Map<String, GeoSearchCommand> actual = GeoSearchOps.pack("foo", request, state);
 
         Assert.assertNotNull(actual);
         Assert.assertNull(actual.get("3063664f-cd4d-4818-b5d3-8fb72c019bf5"));
@@ -65,22 +65,22 @@ public class GeoSearchOpsTest {
     @Test
     public void testUnpack() {
         GeoEvent event = new GeoEvent(null, null, 49.80, 24.00);
-        List<GeoSearchQuery> queries = Arrays.asList(
-            new GeoSearchQuery()
+        List<GeoSearchCommand> commands = Arrays.asList(
+            new GeoSearchCommand()
                 .withId("3063664f-cd4d-4818-b5d3-8fb72c019bf5"),
-            new GeoSearchQuery()
+            new GeoSearchCommand()
                 .withId("5e6e317d-4657-4937-ad4e-ae015e129a94"));
 
-        Iterable<KeyValue<GeoEvent, GeoSearchQuery>> iterable =
-            GeoSearchOps.unpack(new KeyValue<>(event, queries));
+        Iterable<KeyValue<GeoEvent, GeoSearchCommand>> iterable =
+            GeoSearchOps.unpack(new KeyValue<>(event, commands));
 
         Assert.assertNotNull(iterable);
-        List<KeyValue<GeoEvent, GeoSearchQuery>> objects = new ArrayList<>();
+        List<KeyValue<GeoEvent, GeoSearchCommand>> objects = new ArrayList<>();
         iterable.forEach(objects::add);
         Assert.assertEquals(objects.get(0).key, event);
-        Assert.assertEquals(objects.get(0).value, queries.get(0));
+        Assert.assertEquals(objects.get(0).value, commands.get(0));
         Assert.assertEquals(objects.get(1).key, event);
-        Assert.assertEquals(objects.get(1).value, queries.get(1));
+        Assert.assertEquals(objects.get(1).value, commands.get(1));
     }
 
     @Test
@@ -90,7 +90,7 @@ public class GeoSearchOpsTest {
             .withTimestamp(1610492302000L)
             .withLatitude(49.82702060271987)
             .withLongitude(24.03533935546875);
-        GeoSearchQuery request = new GeoSearchQuery()
+        GeoSearchCommand request = new GeoSearchCommand()
             .withId("74382c9d-b771-48af-a0df-4040d2a42f49")
             .withBoundingBox(new BoundingBox()
                 .withType("geojson")
@@ -118,7 +118,7 @@ public class GeoSearchOpsTest {
             .withTimestamp(1610492302000L)
             .withLatitude(49.82153874579642)
             .withLongitude(24.031648635864258);
-        GeoSearchQuery request = new GeoSearchQuery()
+        GeoSearchCommand request = new GeoSearchCommand()
             .withId("74382c9d-b771-48af-a0df-4040d2a42f49")
             .withBoundingBox(new BoundingBox()
                 .withType("geojson")

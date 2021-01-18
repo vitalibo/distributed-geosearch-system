@@ -6,7 +6,7 @@ import com.github.vitalibo.geosearch.processor.TestInputTopic;
 import com.github.vitalibo.geosearch.processor.TestOutputTopic;
 import com.github.vitalibo.geosearch.processor.TestTopology;
 import com.github.vitalibo.geosearch.processor.core.model.GeoEvent;
-import com.github.vitalibo.geosearch.processor.core.model.GeoSearchQuery;
+import com.github.vitalibo.geosearch.processor.core.model.GeoSearchCommand;
 import com.github.vitalibo.geosearch.processor.core.model.GeoSearchResult;
 import com.github.vitalibo.geosearch.processor.core.util.SerDe;
 import org.apache.kafka.streams.KeyValue;
@@ -19,31 +19,31 @@ import java.util.List;
 public class GeoSearchTopologyTest extends TestTopology {
 
     private TestInputTopic<Integer, GeoEvent> inputGeoEvent;
-    private TestInputTopic<String, GeoSearchQuery> inputGeoSearchQuery;
+    private TestInputTopic<String, GeoSearchCommand> inputGeoSearchCommand;
     private TestOutputTopic<String, GeoSearchResult> outputGeoSearchResult;
 
     @BeforeMethod
     public void setUp() {
         inputGeoEvent = createMockInputTopic(SerDe.Integer(), SerDe.GeoEvent());
-        inputGeoSearchQuery = createMockInputTopic(SerDe.String(), SerDe.GeoSearchQuery());
+        inputGeoSearchCommand = createMockInputTopic(SerDe.String(), SerDe.GeoSearchCommand());
         outputGeoSearchResult = createMockOutputTopic(SerDe.String(), SerDe.GeoSearchResult());
-        configure(new GeoSearchTopology(inputGeoEvent, inputGeoSearchQuery, outputGeoSearchResult, 5));
+        configure(new GeoSearchTopology(inputGeoEvent, inputGeoSearchCommand, outputGeoSearchResult, 5));
     }
 
     @Test
     public void testTopology() {
         List<List<KeyValue<Integer, GeoEvent>>> events = TestHelper.resourceAsMultiListKeyValue(
             TestHelper.resourcePath("GeoEvent.json"), new TypeReference<>() {});
-        List<List<KeyValue<String, GeoSearchQuery>>> queries = TestHelper.resourceAsMultiListKeyValue(
-            TestHelper.resourcePath("GeoSearchQuery.json"), new TypeReference<>() {});
+        List<List<KeyValue<String, GeoSearchCommand>>> commands = TestHelper.resourceAsMultiListKeyValue(
+            TestHelper.resourcePath("GeoSearchCommand.json"), new TypeReference<>() {});
         List<List<KeyValue<String, GeoSearchResult>>> expected = TestHelper.resourceAsMultiListKeyValue(
             TestHelper.resourcePath("GeoSearchResult.json"), new TypeReference<>() {});
 
-        Assert.assertEquals(events.size(), queries.size());
+        Assert.assertEquals(events.size(), commands.size());
         Assert.assertEquals(events.size(), expected.size());
         for (int i = 0; i < events.size(); i++) {
             inputGeoEvent.pipeKeyValueList(events.get(i));
-            inputGeoSearchQuery.pipeKeyValueList(queries.get(i));
+            inputGeoSearchCommand.pipeKeyValueList(commands.get(i));
 
             List<KeyValue<String, GeoSearchResult>> actual = outputGeoSearchResult.readKeyValuesToList();
             Assert.assertEquals(actual, expected.get(i), String.format("Iteration [%s]", i));

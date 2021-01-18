@@ -24,7 +24,7 @@ public class Configuration {
         private Map<String, Object> schemaRegistryDynamicConf;
 
         private String topicGeoEvent;
-        private String topicGeoSearchQuery;
+        private String topicGeoSearchCommand;
         private String topicGeoSearchResult;
 
     }

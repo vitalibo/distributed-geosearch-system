@@ -9,7 +9,7 @@
         "type": "string",
         "logicalType": "uuid"
       },
-      "doc": "query id"
+      "doc": "command id"
     },
     {
       "name": "events",

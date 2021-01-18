@@ -2,7 +2,7 @@ package com.github.vitalibo.geosearch.processor.core.stream.transform;
 
 import com.github.vitalibo.geosearch.processor.core.math.Geo;
 import com.github.vitalibo.geosearch.processor.core.model.GeoEvent;
-import com.github.vitalibo.geosearch.processor.core.model.GeoSearchQuery;
+import com.github.vitalibo.geosearch.processor.core.model.GeoSearchCommand;
 import com.github.vitalibo.geosearch.processor.core.model.GeoSearchResult;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.KeyValueMapper;
@@ -20,15 +20,15 @@ public final class GeoSearchOps {
     private GeoSearchOps() {
     }
 
-    public static TransformerSupplier<String, GeoSearchQuery, Iterable<KeyValue<String, GeoSearchQuery>>> defineCoverBoundingBox(int geohashLength) {
+    public static TransformerSupplier<String, GeoSearchCommand, Iterable<KeyValue<String, GeoSearchCommand>>> defineCoverBoundingBox(int geohashLength) {
         return () -> new CoverBoundingBoxTransformer(geohashLength);
     }
 
-    public static Map<String, GeoSearchQuery> pack(String ignored, GeoSearchQuery query, Map<String, GeoSearchQuery> aggregate) {
-        if (query.isSubscribe()) {
-            aggregate.put(query.getId(), query);
+    public static Map<String, GeoSearchCommand> pack(String ignored, GeoSearchCommand command, Map<String, GeoSearchCommand> aggregate) {
+        if (command.isSubscribe()) {
+            aggregate.put(command.getId(), command);
         } else {
-            aggregate.remove(query.getId());
+            aggregate.remove(command.getId());
         }
 
         return aggregate;
@@ -38,20 +38,20 @@ public final class GeoSearchOps {
         return (k, v) -> Geo.encodeGeoHash(v.getLatitude(), v.getLongitude(), geohashLength);
     }
 
-    public static Iterable<KeyValue<GeoEvent, GeoSearchQuery>> unpack(KeyValue<GeoEvent, Collection<GeoSearchQuery>> pair) {
+    public static Iterable<KeyValue<GeoEvent, GeoSearchCommand>> unpack(KeyValue<GeoEvent, Collection<GeoSearchCommand>> pair) {
         final GeoEvent event = pair.key;
-        final Collection<GeoSearchQuery> queries = pair.value;
+        final Collection<GeoSearchCommand> commands = pair.value;
 
-        return queries.stream()
-            .map(query -> new KeyValue<>(event, query))
+        return commands.stream()
+            .map(command -> new KeyValue<>(event, command))
             .collect(Collectors.toList());
     }
 
-    public static Iterable<KeyValue<String, GeoSearchResult>> accurateGeoSearch(String ignored, KeyValue<GeoEvent, GeoSearchQuery> pair) {
+    public static Iterable<KeyValue<String, GeoSearchResult>> accurateGeoSearch(String ignored, KeyValue<GeoEvent, GeoSearchCommand> pair) {
         final GeoEvent event = pair.key;
-        final GeoSearchQuery query = pair.value;
+        final GeoSearchCommand command = pair.value;
 
-        Polygon polygon = Geo.createPolygon(query.getBoundingBox());
+        Polygon polygon = Geo.createPolygon(command.getBoundingBox());
         Point point = Geo.createPoint(event.getLatitude(), event.getLongitude());
         if (!polygon.contains(point)) {
             return Collections.emptyList();
@@ -59,9 +59,9 @@ public final class GeoSearchOps {
 
         return Collections.singleton(
             new KeyValue<>(
-                query.getId(),
+                command.getId(),
                 new GeoSearchResult()
-                    .withId(query.getId())
+                    .withId(command.getId())
                     .withEvent(event)));
     }
 

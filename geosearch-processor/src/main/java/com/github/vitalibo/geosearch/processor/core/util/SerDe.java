@@ -1,7 +1,7 @@
 package com.github.vitalibo.geosearch.processor.core.util;
 
 import com.github.vitalibo.geosearch.processor.core.model.GeoEvent;
-import com.github.vitalibo.geosearch.processor.core.model.GeoSearchQuery;
+import com.github.vitalibo.geosearch.processor.core.model.GeoSearchCommand;
 import com.github.vitalibo.geosearch.processor.core.model.GeoSearchResult;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
@@ -31,8 +31,8 @@ public class SerDe extends Serdes {
         return new MapSerDe<>(keySerde, valueSerDe, HashMap::new);
     }
 
-    public static Serde<GeoSearchQuery> GeoSearchQuery() {
-        return new ReflectionAvroSerDe<>(GeoSearchQuery.class);
+    public static Serde<GeoSearchCommand> GeoSearchCommand() {
+        return new ReflectionAvroSerDe<>(GeoSearchCommand.class);
     }
 
     public static Serde<GeoEvent> GeoEvent() {

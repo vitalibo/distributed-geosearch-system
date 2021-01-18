@@ -7,7 +7,7 @@ import com.github.vitalibo.geosearch.processor.core.util.SerDe;
 import com.github.vitalibo.geosearch.processor.infrastructure.kafka.ReadableStreamValueDecorator;
 import com.github.vitalibo.geosearch.processor.infrastructure.kafka.WritableStreamValueDecorator;
 import com.github.vitalibo.geosearch.processor.infrastructure.kafka.transform.GeoEventTranslator;
-import com.github.vitalibo.geosearch.processor.infrastructure.kafka.transform.GeoSearchQueryTranslator;
+import com.github.vitalibo.geosearch.processor.infrastructure.kafka.transform.GeoSearchCommandTranslator;
 import com.github.vitalibo.geosearch.processor.infrastructure.kafka.transform.GeoSearchResultSharedTranslator;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigBeanFactory;
@@ -56,8 +56,8 @@ public class Factory {
                 new Topic<>(kafkaConf.getTopicGeoEvent(), SerDe.Integer(), valueSchemaRegistryAvroSerDe(kafkaConf)),
                 GeoEventTranslator::from),
             new ReadableStreamValueDecorator<>(
-                new Topic<>(kafkaConf.getTopicGeoSearchQuery(), SerDe.String(), valueSchemaRegistryAvroSerDe(kafkaConf)),
-                GeoSearchQueryTranslator::from),
+                new Topic<>(kafkaConf.getTopicGeoSearchCommand(), SerDe.String(), valueSchemaRegistryAvroSerDe(kafkaConf)),
+                GeoSearchCommandTranslator::from),
             new WritableStreamValueDecorator<>(
                 new Topic<>(kafkaConf.getTopicGeoSearchResult(), SerDe.String(), valueSchemaRegistryAvroSerDe(kafkaConf)),
                 GeoSearchResultSharedTranslator::from),

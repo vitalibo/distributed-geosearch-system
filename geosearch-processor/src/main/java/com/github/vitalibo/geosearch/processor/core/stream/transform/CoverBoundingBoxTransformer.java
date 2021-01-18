@@ -1,7 +1,7 @@
 package com.github.vitalibo.geosearch.processor.core.stream.transform;
 
 import com.github.vitalibo.geosearch.processor.core.math.Geo;
-import com.github.vitalibo.geosearch.processor.core.model.GeoSearchQuery;
+import com.github.vitalibo.geosearch.processor.core.model.GeoSearchCommand;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.Transformer;
@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class CoverBoundingBoxTransformer implements Transformer<String, GeoSearchQuery, Iterable<KeyValue<String, GeoSearchQuery>>> {
+public class CoverBoundingBoxTransformer implements Transformer<String, GeoSearchCommand, Iterable<KeyValue<String, GeoSearchCommand>>> {
 
     private final int geohashLength;
 
@@ -21,12 +21,12 @@ public class CoverBoundingBoxTransformer implements Transformer<String, GeoSearc
     }
 
     @Override
-    public Iterable<KeyValue<String, GeoSearchQuery>> transform(String ignored, GeoSearchQuery query) {
-        Polygon polygon = Geo.createPolygon(query.getBoundingBox());
+    public Iterable<KeyValue<String, GeoSearchCommand>> transform(String ignored, GeoSearchCommand command) {
+        Polygon polygon = Geo.createPolygon(command.getBoundingBox());
         Set<String> hashes = Geo.coverBoundingBox(polygon, geohashLength);
 
         return hashes.stream()
-            .map(geohash -> new KeyValue<>(geohash, query))
+            .map(geohash -> new KeyValue<>(geohash, command))
             .collect(Collectors.toList());
     }
 

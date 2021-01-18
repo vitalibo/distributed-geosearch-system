@@ -57,7 +57,7 @@
                     </schemaRegistryUrls>
                     <subjects>
                         <geo-event-value>${schema.directory}/geo_event.avsc</geo-event-value>
-                        <geo-search-query-value>${schema.directory}/geo_search_query.avsc</geo-search-query-value>
+                        <geo-search-command-value>${schema.directory}/geo_search_command.avsc</geo-search-command-value>
                         <geo-search-result-value>${schema.directory}/geo_search_result.avsc</geo-search-result-value>
                     </subjects>
                     <references>

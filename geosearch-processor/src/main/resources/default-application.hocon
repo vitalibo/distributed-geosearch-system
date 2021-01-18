@@ -16,6 +16,6 @@ kafka {
   }
 
   topicGeoEvent: "geo-event"
-  topicGeoSearchQuery: "geo-search-query"
+  topicGeoSearchCommand: "geo-search-command"
   topicGeoSearchResult: "geo-search-result"
 }
