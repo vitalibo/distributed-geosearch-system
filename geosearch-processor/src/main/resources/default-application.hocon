@@ -18,4 +18,6 @@ kafka {
   topicGeoEvent: "geo-event"
   topicGeoSearchCommand: "geo-search-command"
   topicGeoSearchResult: "geo-search-result"
+
+  storeGeoHashes: "geo-hashes-store"
 }

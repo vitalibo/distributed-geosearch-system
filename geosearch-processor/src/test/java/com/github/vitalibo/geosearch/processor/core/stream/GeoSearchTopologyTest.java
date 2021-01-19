@@ -9,7 +9,9 @@ import com.github.vitalibo.geosearch.processor.core.model.GeoEvent;
 import com.github.vitalibo.geosearch.processor.core.model.GeoSearchCommand;
 import com.github.vitalibo.geosearch.processor.core.model.GeoSearchResult;
 import com.github.vitalibo.geosearch.processor.core.util.SerDe;
+import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
+import org.apache.kafka.streams.state.Stores;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -27,7 +29,9 @@ public class GeoSearchTopologyTest extends TestTopology {
         inputGeoEvent = createMockInputTopic(SerDe.Integer(), SerDe.GeoEvent());
         inputGeoSearchCommand = createMockInputTopic(SerDe.String(), SerDe.GeoSearchCommand());
         outputGeoSearchResult = createMockOutputTopic(SerDe.String(), SerDe.GeoSearchResult());
-        configure(new GeoSearchTopology(inputGeoEvent, inputGeoSearchCommand, outputGeoSearchResult, 5));
+        configure(new GeoSearchTopology(inputGeoEvent, inputGeoSearchCommand, outputGeoSearchResult, 5, "GeoHashes")
+            .addStateStore(Stores.keyValueStoreBuilder(
+                Stores.persistentKeyValueStore("GeoHashes"), Serdes.String(), SerDe.HashSet(SerDe.String()))));
     }
 
     @Test

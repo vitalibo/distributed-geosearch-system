@@ -17,13 +17,12 @@ import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
 import lombok.Getter;
 import org.apache.avro.specific.SpecificRecord;
 import org.apache.kafka.common.serialization.Serde;
+import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.errors.LogAndContinueExceptionHandler;
+import org.apache.kafka.streams.state.Stores;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 import static io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG;
 import static org.apache.kafka.clients.CommonClientConfigs.SECURITY_PROTOCOL_CONFIG;
@@ -61,7 +60,11 @@ public class Factory {
             new WritableStreamValueDecorator<>(
                 new Topic<>(kafkaConf.getTopicGeoSearchResult(), SerDe.String(), valueSchemaRegistryAvroSerDe(kafkaConf)),
                 GeoSearchResultSharedTranslator::from),
-            configuration.getGeohashLength())
+            configuration.getGeohashLength(),
+            kafkaConf.getStoreGeoHashes())
+            .addStateStore(Stores
+                .keyValueStoreBuilder(Stores.persistentKeyValueStore(kafkaConf.getStoreGeoHashes()), Serdes.String(), SerDe.HashSet(SerDe.String()))
+                .withLoggingEnabled(Collections.emptyMap()))
             .build();
     }
 

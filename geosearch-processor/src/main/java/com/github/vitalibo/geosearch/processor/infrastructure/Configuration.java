@@ -27,6 +27,8 @@ public class Configuration {
         private String topicGeoSearchCommand;
         private String topicGeoSearchResult;
 
+        private String storeGeoHashes;
+
     }
 
 }

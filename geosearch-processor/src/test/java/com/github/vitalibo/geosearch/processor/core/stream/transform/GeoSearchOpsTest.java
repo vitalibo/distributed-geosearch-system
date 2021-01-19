@@ -18,7 +18,7 @@ public class GeoSearchOpsTest {
     @Test
     public void testDefineCoverBoundingBox() {
         TransformerSupplier<String, GeoSearchCommand, Iterable<KeyValue<String, GeoSearchCommand>>> actual =
-            GeoSearchOps.defineCoverBoundingBox(5);
+            GeoSearchOps.defineCoverBoundingBox(5, "foo");
 
         Assert.assertNotNull(actual);
         Assert.assertTrue(actual.get() instanceof CoverBoundingBoxTransformer);

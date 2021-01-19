@@ -24,11 +24,12 @@ public class GeoSearchTopology extends TopologyBuilder {
     private final Writable.Stream<String, GeoSearchResult> sinkGeoSearchResult;
 
     private final int geohashLength;
+    private final String geohashesStore;
 
     @Override
     public void defineTopology() {
         KTable<String, Collection<GeoSearchCommand>> commands = stream(sourceGeoSearchCommand)
-            .flatTransform(GeoSearchOps.defineCoverBoundingBox(geohashLength))
+            .flatTransform(GeoSearchOps.defineCoverBoundingBox(geohashLength, geohashesStore), geohashesStore)
             .groupByKey(Grouped.with(SerDe.String(), SerDe.GeoSearchCommand()))
             .aggregate(HashMap::new, GeoSearchOps::pack, Materialized.with(SerDe.String(), SerDe.HashMap(SerDe.String(), SerDe.GeoSearchCommand())))
             .mapValues(Map::values);

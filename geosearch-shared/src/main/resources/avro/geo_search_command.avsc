@@ -24,22 +24,25 @@
     },
     {
       "name": "boundingBox",
-      "type": {
-        "type": "record",
-        "namespace": "com.github.vitalibo.geosearch.shared",
-        "name": "GeoSearchCommandBoundingBoxShared",
-        "fields": [
-          {
-            "name": "type",
-            "type": "string",
-            "default": "GeoJSON"
-          },
-          {
-            "name": "geometry",
-            "type": "string"
-          }
-        ]
-      }
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "namespace": "com.github.vitalibo.geosearch.shared",
+          "name": "GeoSearchCommandBoundingBoxShared",
+          "fields": [
+            {
+              "name": "type",
+              "type": "string",
+              "default": "GeoJSON"
+            },
+            {
+              "name": "geometry",
+              "type": "string"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

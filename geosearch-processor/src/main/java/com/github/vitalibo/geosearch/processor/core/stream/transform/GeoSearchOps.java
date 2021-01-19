@@ -20,8 +20,8 @@ public final class GeoSearchOps {
     private GeoSearchOps() {
     }
 
-    public static TransformerSupplier<String, GeoSearchCommand, Iterable<KeyValue<String, GeoSearchCommand>>> defineCoverBoundingBox(int geohashLength) {
-        return () -> new CoverBoundingBoxTransformer(geohashLength);
+    public static TransformerSupplier<String, GeoSearchCommand, Iterable<KeyValue<String, GeoSearchCommand>>> defineCoverBoundingBox(int geohashLength, String geohashesStore) {
+        return () -> new CoverBoundingBoxTransformer(geohashLength, geohashesStore);
     }
 
     public static Map<String, GeoSearchCommand> pack(String ignored, GeoSearchCommand command, Map<String, GeoSearchCommand> aggregate) {
