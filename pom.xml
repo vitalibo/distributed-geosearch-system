@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kafka.version>2.7.0</kafka.version>
         <confluent.version>6.0.1</confluent.version>
-        <spring.version>2.4.1</spring.version>
+        <spring.version>2.3.8.RELEASE</spring.version>
         <avro.version>1.10.1</avro.version>
         <config.version>1.4.1</config.version>
         <pmd.version>6.26.0</pmd.version>
@@ -135,6 +135,21 @@
                 <groupId>com.typesafe</groupId>
                 <artifactId>config</artifactId>
                 <version>${config.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>sockjs-client</artifactId>
+                <version>1.1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>stomp-websocket</artifactId>
+                <version>2.3.3-1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>jquery</artifactId>
+                <version>3.5.1</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>

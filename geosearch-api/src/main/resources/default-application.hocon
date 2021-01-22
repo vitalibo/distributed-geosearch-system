@@ -1,1 +1,44 @@
 module: api
+
+application {
+  kafka {
+    topicGeoSearchCommand: "geo-search-command"
+  }
+
+  websocket {
+    eventDestination: "/queue/geo_search/result"
+    errorDestination: "/queue/geo_search/error"
+  }
+}
+
+spring {
+  kafka: {
+    bootstrap-servers: null
+
+    properties {
+      "request.timeout.ms": 20000
+      "retry.backoff.ms": 500
+      "security.protocol": null
+      "schema.registry.url": null
+      "specific.avro.reader": true
+    }
+
+    consumer {
+      group-id: ${module}"-group"
+      auto-offset-reset: "earliest"
+      key-deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
+      value-deserializer: "io.confluent.kafka.serializers.KafkaAvroDeserializer"
+    }
+
+    producer {
+      key-serializer: "org.apache.kafka.common.serialization.StringSerializer"
+      value-serializer: "io.confluent.kafka.serializers.KafkaAvroSerializer"
+    }
+  }
+}
+
+logging {
+  level {
+    root: INFO
+  }
+}

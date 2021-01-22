@@ -1,1 +1,14 @@
 environment: dev
+
+spring {
+  kafka: {
+    bootstrap-servers: [
+      "localhost:9092"
+    ]
+
+    properties {
+      "security.protocol": "PLAINTEXT"
+      "schema.registry.url": "http://localhost:8081"
+    }
+  }
+}
