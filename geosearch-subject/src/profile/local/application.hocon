@@ -2,7 +2,7 @@ environment: dev
 
 source {
   random {
-    backOffSleepIntervalMillis: 1000
+    backOffSleepIntervalMillis: 100
   }
 
   blitzortung {

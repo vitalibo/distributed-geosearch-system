@@ -1,5 +1,7 @@
 environment: dev
 
+geohashLength: 3
+
 kafka {
   bootstrapServers: "localhost:9092"
   securityProtocol: "PLAINTEXT"
