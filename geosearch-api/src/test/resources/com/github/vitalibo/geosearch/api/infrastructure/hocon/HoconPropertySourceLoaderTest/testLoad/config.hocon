@@ -1,0 +1,28 @@
+x: y
+
+app {
+  foo: bar
+  int: 1
+  double: 1.23
+  bool: true
+
+  arr: [
+    "arr1",
+    "arr2",
+    "arr3"
+  ]
+
+  arr2: [
+    {
+      os.name: linux
+    },
+    [
+      "cpu",
+      "gpu"
+    ]
+  ]
+
+  properties {
+    "f1.f2.f3": "com.apple.eio.FileManager"
+  }
+}

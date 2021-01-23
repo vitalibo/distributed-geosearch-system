@@ -21,7 +21,7 @@ public class Controller {
 
     private final GeoSearchFacade facade;
 
-    @MessageMapping("/geo_search")
+    @MessageMapping("${application.websocket.commandSource}")
     public void handleGeoSearch(Message<String> message) {
         facade.handleAsyncCommand(GeoSearchCommandTranslator.from(message));
     }
@@ -31,7 +31,7 @@ public class Controller {
         facade.handleAsyncCommand(GeoSearchCommandTranslator.from(event));
     }
 
-    @KafkaListener(topics = "geo-search-result")
+    @KafkaListener(topics = "${application.kafka.topicGeoSearchResult}")
     public void consume(ConsumerRecord<String, GeoSearchResultShared> record) {
         facade.handleAsyncQueryResult(GeoSearchResultTranslator.from(record));
     }

@@ -3,9 +3,11 @@ module: api
 application {
   kafka {
     topicGeoSearchCommand: "geo-search-command"
+    topicGeoSearchResult: "geo-search-result"
   }
 
   websocket {
+    commandSource: "/geo_search"
     eventDestination: "/queue/geo_search/result"
     errorDestination: "/queue/geo_search/error"
   }

@@ -5,9 +5,10 @@ import com.github.vitalibo.geosearch.api.core.util.ErrorState;
 import lombok.SneakyThrows;
 import org.geotools.geojson.geom.GeometryJSON;
 import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Polygon;
 
-import java.io.IOException;
+import java.util.Objects;
 
 public final class ValidationRules {
 
@@ -22,8 +23,9 @@ public final class ValidationRules {
         }
 
         try {
-            geometryJson.read(command.getBoundingBox());
-        } catch (IOException ignored) {
+            Geometry geometry = geometryJson.read(command.getBoundingBox());
+            Objects.requireNonNull(geometry);
+        } catch (Exception ignored) {
             errorState.addError("body", "Invalid GeoJSON");
         }
     }
