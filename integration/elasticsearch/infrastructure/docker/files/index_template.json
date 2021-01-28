@@ -1,0 +1,19 @@
+{
+  "template": "geo-*",
+  "settings": {
+    "number_of_shards": 1
+  },
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "eventTime": {
+        "type": "date"
+      },
+      "location": {
+        "type": "geo_point"
+      }
+    }
+  }
+}

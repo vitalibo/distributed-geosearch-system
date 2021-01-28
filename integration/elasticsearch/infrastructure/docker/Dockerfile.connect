@@ -1,0 +1,4 @@
+FROM confluentinc/cp-kafka-connect:6.0.1
+
+RUN confluent-hub install --no-prompt confluentinc/kafka-connect-elasticsearch:11.0.0
+ADD files/kafka-connect-elasticsearch-transforms.jar /usr/share/java/
