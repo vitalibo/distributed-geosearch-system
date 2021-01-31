@@ -1,0 +1,7 @@
+kadeckweb:
+  service:
+    type: LoadBalancer
+
+  environments:
+    xeotek_kadeck_teamid: docker.bQLUoUua4ro
+    xeotek_kadeck_secret: 560cbcf40ea39f8212f51dfe2344054169b1363debe3893c8e7db242f79e62a562c06043cf2cec240651

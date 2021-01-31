@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "kafka.fullname" . }}-headless
+  labels:
+    {{- include "kafka.labels" . | nindent 4 }}
+spec:
+  type: "ClusterIP"
+  clusterIP: None
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: client
+      name: client
+  selector:
+    {{- include "kafka.selectorLabels" . | nindent 4 }}

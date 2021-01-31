@@ -1,0 +1,38 @@
+replicaCount: 1
+
+image:
+  repository: xeotek/kadeckweb
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: [ ]
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+
+environments:
+  xeotek_kadeck_teamid: null
+  xeotek_kadeck_secret: null
+
+resources:
+#  limits:
+#    cpu: 100m
+#    memory: 1024Mi
+#  requests:
+#    cpu: 100m
+#    memory: 1024Mi
+
+nodeSelector: { }
+
+tolerations: [ ]
+
+affinity: { }
+
+podAnnotations: { }
+
+podSecurityContext: { }
+
+securityContext: { }

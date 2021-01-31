@@ -1,0 +1,7 @@
+# Distributed GeoSearch System
+
+## KaDeck Web
+
+```bash
+minikube service --namespace {{ .Release.Namespace }} {{ .Release.Name }}-kadeckweb
+```

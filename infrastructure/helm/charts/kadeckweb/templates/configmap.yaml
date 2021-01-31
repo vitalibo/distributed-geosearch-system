@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "kadeckweb.fullname" . }}
+  labels:
+    {{- include "kadeckweb.labels" . | nindent 4 }}
+data:
+  "auth.json": |-
+    {{ .Files.Get "files/auth.json" | nindent 4 }}
+  "servers.json": |-
+    {{- tpl ( .Files.Get "files/servers.json" | nindent 4 ) .}}

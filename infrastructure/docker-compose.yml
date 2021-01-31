@@ -14,6 +14,41 @@ services:
       - broker
       - schema-registry
 
+  kadeckweb_post_install:
+    image: appropriate/curl
+    depends_on:
+      - kadeckweb
+    entrypoint: '/bin/sh'
+    command:
+      - "-c"
+      - |
+        until nc -vz kadeckweb 80 ; do
+          echo waiting for kadeckweb; sleep 5;
+        done
+        curl -X POST http://kadeckweb:80/api/auth -c cookie --data \
+          '{
+            "username": "admin",
+            "password": "admin"
+          }'
+        curl -X POST http://kadeckweb:80/api/servers -b cookie --data \
+          '{
+            "id": -1,
+            "name": "local",
+            "address": "broker:29092",
+            "schemaregistry": "schema-registry:8081",
+            "type": "KAFKA",
+            "security": {
+              "ts_loc": "",
+              "ts_pass": "",
+              "ks_loc": "",
+              "ks_pass": "",
+              "ks_ppass": "",
+              "protocol": "PLAINTEXT"
+            },
+            "sasl": null,
+            "schemasecurity": null
+          }'
+
   zookeeper:
     image: confluentinc/cp-zookeeper:6.0.1
     hostname: zookeeper
@@ -47,14 +82,21 @@ services:
       KAFKA_JMX_HOSTNAME: localhost
 
   broker_init_container:
-    build: ./kafka/
+    image: hashicorp/terraform:0.14.5
     container_name: broker_init_container
     depends_on:
       - broker
       - schema-registry
-    environment:
-      KAFKA_BROKER_HOST: 'broker'
-      KAFKA_BROKER_PORT: 29092
+    working_dir: /var/lib/kafka
+    entrypoint: '/bin/sh'
+    command:
+      - "-c"
+      - |
+        terraform init
+        while ! nc -vz broker 29092 ; do sleep 1; done
+        terraform apply -auto-approve
+    volumes:
+      - ${PWD}/resources.tf:/var/lib/kafka/resources.tf
 
   schema-registry:
     image: confluentinc/cp-schema-registry:6.0.1

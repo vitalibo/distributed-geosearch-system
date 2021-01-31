@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "kadeckweb.fullname" . }}
+  labels:
+    {{- include "kadeckweb.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: {{ include "kadeckweb.fullname" . }}
+      labels:
+        {{- include "kadeckweb.labels" . | nindent 8 }}
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: job
+          image: appropriate/curl
+          command:
+            - "/bin/sh"
+            - "-c"
+            - |-
+              host='{{ .Release.Name }}-kadeckweb:{{ .Values.service.port }}'
+              curl -X POST http://$host/api/auth -c cookie --data "@/opt/kadeckweb/auth.json"
+              curl -X POST http://$host/api/servers -b cookie --data "@/opt/kadeckweb/servers.json"
+          volumeMounts:
+            - name: configmap
+              mountPath: /opt/kadeckweb
+      initContainers:
+        - name: init
+          image: busybox:1.28
+          command: [ 'sh', '-c', 'until nc -vz {{ .Release.Name }}-kadeckweb {{ .Values.service.port }} ; do echo waiting for kadeckweb; sleep 5; done']
+      volumes:
+        - name: configmap
+          configMap:
+            name: {{ include "kadeckweb.fullname" . }}

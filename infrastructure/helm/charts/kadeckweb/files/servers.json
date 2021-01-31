@@ -1,0 +1,17 @@
+{
+  "id": -1,
+  "name": "local",
+  "address": "{{ .Release.Name }}-kafka:9092",
+  "schemaregistry": "{{ .Release.Name }}-schema-registry:8081",
+  "type": "KAFKA",
+  "security": {
+    "ts_loc": "",
+    "ts_pass": "",
+    "ks_loc": "",
+    "ks_pass": "",
+    "ks_ppass": "",
+    "protocol": "PLAINTEXT"
+  },
+  "sasl": null,
+  "schemasecurity": null
+}

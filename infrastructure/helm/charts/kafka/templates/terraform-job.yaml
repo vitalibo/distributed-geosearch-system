@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "kafka.fullname" . }}
+  labels:
+    {{- include "kafka.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install, post-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: {{ include "kafka.fullname" . }}
+      labels:
+        {{- include "kafka.labels" . | nindent 8 }}
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: terrform
+          image: "{{ .Values.terraformImage.repository }}:{{ .Values.terraformImage.tag }}"
+          imagePullPolicy: {{ .Values.terraformImage.pullPolicy }}
+          workingDir: /var/lib/kafka
+          command:
+            - "/bin/sh"
+            - "-c"
+            - |-
+              set -e
+              cp /opt/terraform/resources.tf /var/lib/kafka
+              terraform init
+              terraform apply -auto-approve \
+                -var='bootstrap_servers=["{{ include "kafka.fullname" . }}:{{ .Values.service.port }}"]' \
+                -var='replication_factor={{ .Values.replicaCount }}'
+          volumeMounts:
+            - name: configmap
+              mountPath: /opt/terraform
+            - name: terraform
+              mountPath: /var/lib/kafka
+      initContainers:
+        - name: init
+          image: busybox:1.28
+          command: [ 'sh', '-c', 'until nc -vz {{ .Release.Name }}-kafka 9092 ; do echo waiting for kafka; sleep 5; done']
+      volumes:
+        - name: configmap
+          configMap:
+            name: {{ include "kafka.fullname" . }}
+        - name: terraform
+          persistentVolumeClaim:
+            claimName: {{ include "kafka.fullname" . }}-terrform

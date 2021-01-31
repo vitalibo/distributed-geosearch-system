@@ -1,0 +1,18 @@
+apiVersion: v2
+name: distributed-geosearch-system
+description: A Helm chart for Distributed Geosearch System
+type: application
+version: 0.1.0
+dependencies:
+  - name: kadeckweb
+    version: 0.1.0
+    repository: file://./charts/kadeckweb
+  - name: zookeeper
+    version: 0.1.0
+    repository: file://./charts/zookeeper
+  - name: kafka
+    version: 0.1.0
+    repository: file://./charts/kafka
+  - name: schema-registry
+    version: 0.1.0
+    repository: file://./charts/schema-registry

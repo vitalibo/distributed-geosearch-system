@@ -1,0 +1,34 @@
+replicaCount: 3
+
+image:
+  repository: zookeeper
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 2181
+
+resources:
+#  limits:
+#    cpu: 100m
+#    memory: 1024Mi
+#  requests:
+#    cpu: 100m
+#    memory: 1024Mi
+
+nodeSelector: { }
+
+tolerations: [ ]
+
+affinity: { }
+
+podAnnotations: { }
+
+podSecurityContext: { }
+
+securityContext: { }

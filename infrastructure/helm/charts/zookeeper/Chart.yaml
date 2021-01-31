@@ -1,0 +1,6 @@
+apiVersion: v2
+name: zookeeper
+description: A Helm chart for Apache Zookeeper
+type: application
+version: 0.1.0
+appVersion: "3.6.2"

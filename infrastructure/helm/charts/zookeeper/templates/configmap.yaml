@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "zookeeper.fullname" . }}
+  labels:
+    {{- include "zookeeper.labels" . | nindent 4 }}
+data:
+  "zoo.cfg": |-
+    dataDir=/data
+    dataLogDir=/datalog
+    clientPort={{ .Values.service.port }}
+    tickTime=2000
+    initLimit=5
+    syncLimit=2
+    autopurge.snapRetainCount=3
+    autopurge.purgeInterval=0
+    maxClientCnxns=60
+    standaloneEnabled=false
+    admin.enableServer=true
+    4lw.commands.whitelist=stat,ruok
+    {{- range $i, $e := .Values.replicaCount | int | until }}
+    server.{{  $i | add 1  }}={{ include "zookeeper.fullname" $ }}-{{ $i }}.{{ include "zookeeper.fullname" $ }}-headless:2888:3888;2181
+    {{- end }}

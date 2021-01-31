@@ -1,0 +1,6 @@
+apiVersion: v2
+name: kadeckweb
+description: A Helm chart for KaDeck Web
+type: application
+version: 0.1.0
+appVersion: "3.0.1"
