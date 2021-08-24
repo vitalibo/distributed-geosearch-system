@@ -4,7 +4,7 @@ Simple distributed geo search system on top of Apache Kafka
 
 [![Build Status](https://travis-ci.org/vitalibo/distributed-geosearch-system.svg?branch=master)](https://travis-ci.org/vitalibo/distributed-geosearch-system)
 
-![Diagram](https://d1pnzy5wce.execute-api.us-east-1.amazonaws.com/Prod/svg?source=https://raw.githubusercontent.com/vitalibo/distributed-geosearch-system/master/readme.md&name=img.svg)
+![Diagram](https://fwtbbmf399.execute-api.us-east-1.amazonaws.com/Prod/svg?source=https://raw.githubusercontent.com/vitalibo/distributed-geosearch-system/master/readme.md&name=img.svg)
 
 <details>
 <summary>SVG code</summary>

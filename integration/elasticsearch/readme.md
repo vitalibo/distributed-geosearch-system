@@ -2,7 +2,7 @@
 
 Move geo event data from Apache Kafka to ElasticSearch
 
-![Diagram](https://d1pnzy5wce.execute-api.us-east-1.amazonaws.com/Prod/svg?source=https://raw.githubusercontent.com/vitalibo/distributed-geosearch-system/master/integration/elasticsearch/readme.md&name=img.svg)
+![Diagram](https://fwtbbmf399.execute-api.us-east-1.amazonaws.com/Prod/svg?source=https://raw.githubusercontent.com/vitalibo/distributed-geosearch-system/master/integration/elasticsearch/readme.md&name=img.svg)
 
 <details>
 <summary>SVG code</summary>
